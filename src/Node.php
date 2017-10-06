@@ -967,6 +967,20 @@ abstract class Node extends \Baum\Extensions\Eloquent\Model
 
         return $this->computeLevel();
     }
+    
+    /**
+    * Returns true if node is a direct descendant of $other.
+    *
+    * @param NestedSet
+    * @return bool
+    */
+    public function isChildOf($other)
+    {
+        return (
+            intval($this->parent_id) === intval($other->id) &&
+            $this->inSameScope($other)
+        );
+    }
 
     /**
      * Returns true if node is a descendant.
